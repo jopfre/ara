@@ -7,7 +7,7 @@ module.exports = {
         green: {
           50: '#f0fdf4',
           100: '#dcfce7',
-          200: '#baf8cf',
+          200: '#DEFFDE',
           300: '#85f0ab',
           400: '#48e07e',
           500: '#20c75b',
@@ -20,7 +20,7 @@ module.exports = {
       },
     },
     boxShadow: {
-      DEFAULT: '0 8px 0px #156633',
+      DEFAULT: '0 8px 0px #79A588',
     },
   },
   plugins: [],

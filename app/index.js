@@ -6,10 +6,10 @@
 
 import { Text, View } from 'react-native';
 import { Image } from 'expo-image';
-import LinkButton from '../components/link-button';
+import Button from '../components/button';
 import H1 from '../components/h1';
 const Logo = require('./../assets/logo.png');
-const CheckIn = require('./../assets/check-in.png');
+const Checkin = require('./../assets/checkin.png');
 
 export default function App() {
   // const [fontsLoaded] = useFonts({
@@ -34,33 +34,18 @@ export default function App() {
           flex: 1,
         }}
       >
-        <Image
-          source={Logo}
-          style={{
-            flex: 1,
-          }}
-          contentFit="contain"
-        />
+        <Image source={Logo} className="flex-1" contentFit="contain" />
       </View>
 
       <H1>Welcome back!</H1>
 
-      <LinkButton href="/checkin/mood" title="Daily Check-in" />
-      {/* <View
-        style={{
-          width: '100%',
-          flex: 2,
-        }}
-      >
-        <Image
-          source={CheckIn}
-          style={{
-            flex: 1,
-          }}
-          contentFit="contain"
-        />
-      </View> */}
-      <LinkButton href="/home" title="Home" />
+      <Button
+        href="/checkin/mood"
+        image={Checkin}
+        title="Daily Check-in"
+        height={300}
+      />
+      <Button href="/home" title="Home" />
     </>
   );
 }
