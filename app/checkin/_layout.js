@@ -1,34 +1,15 @@
 import { Slot } from 'expo-router';
-import { View, Text } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import BackButton from '../../components/back-button';
+import { useSegments } from 'expo-router';
+import CheckinHeader from '../../components/checkin/checkin-header';
 
 export default function CheckInLayout() {
+  const screens = ['mood', 'yourself', 'others', 'eaten', 'exercised', 'sleep'];
+  const segments = useSegments();
+  const index = screens.indexOf(segments[1]) + 1;
   return (
-    <View
-      style={{
-        backgroundColor: '#FFFFFF',
-        alignItems: 'center',
-        paddingTop: 32,
-        paddingBottom: 32,
-        flex: 1,
-        paddingHorizontal: 16,
-        width: '100%',
-      }}
-    >
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          width: '100%',
-        }}
-      >
-        <BackButton />
-        <Text>Progress</Text>
-      </View>
+    <>
+      <CheckinHeader progress={index / screens.length} />
       <Slot />
-      <StatusBar style="auto" />
-    </View>
+    </>
   );
 }

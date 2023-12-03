@@ -1,11 +1,11 @@
+import { Link } from 'expo-router';
 import { Text, Pressable } from 'react-native';
 
-export default function Button({ title, onPress, active = false }) {
+export default function LinkButton({ href, title }) {
   return (
-    <Pressable
-      // className={`my-4 items-center w-full p-5 rounded-3xl bg-green-100 active:shadow-none shadow border-4 ${
-      //   active ? 'border-green-500' : 'border-green-300'
-      // }`}
+    <Link
+      href={href}
+      asChild
       style={({ pressed }) => [
         {
           shadowOffset: pressed
@@ -14,7 +14,7 @@ export default function Button({ title, onPress, active = false }) {
         },
         {
           backgroundColor: '#DEFFDE',
-          borderColor: active ? '#58A360' : '#B8E3A5',
+          borderColor: '#B8E3A5',
           borderWidth: 4,
           padding: 20,
           borderRadius: 40,
@@ -26,11 +26,10 @@ export default function Button({ title, onPress, active = false }) {
           marginVertical: 16,
         },
       ]}
-      onPress={() => {
-        onPress();
-      }}
     >
-      <Text style={{ fontSize: 30, color: '#0E6135' }}>{title}</Text>
-    </Pressable>
+      <Pressable>
+        <Text style={{ fontSize: 24, color: '#0E6135' }}>{title}</Text>
+      </Pressable>
+    </Link>
   );
 }
