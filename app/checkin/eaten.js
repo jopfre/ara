@@ -5,12 +5,12 @@ const Garden = require('../../assets/eaten.png');
 import P from '../../components/p';
 import React, { useState, useEffect } from 'react';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
-import getCurrentDateFormatted from '../../utils/getCurrentDateFormatted';
+import { getCurrentDate } from '../../utils/date';
 import { router } from 'expo-router';
 import H1 from '../../components/h1';
 
 export default function Eaten() {
-  const date = getCurrentDateFormatted();
+  const date = getCurrentDate();
 
   const [value, setValue] = useState(null);
   const { getItem, setItem } = useAsyncStorage(date);

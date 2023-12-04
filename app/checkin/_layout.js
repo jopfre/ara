@@ -1,14 +1,20 @@
 import { Slot } from 'expo-router';
 import { useSegments } from 'expo-router';
 import CheckinHeader from '../../components/checkin/checkin-header';
+import { View } from 'react-native';
 
 export default function CheckInLayout() {
   const screens = ['mood', 'yourself', 'others', 'eaten', 'exercised', 'sleep'];
   const segments = useSegments();
-  const index = screens.indexOf(segments[1]) + 1;
+  const route = segments[1];
+  const index = screens.indexOf(route) + 1;
   return (
     <>
-      <CheckinHeader progress={index / screens.length} />
+      {route === 'streak' ? (
+        <View className="h-[64px]" />
+      ) : (
+        <CheckinHeader progress={index / screens.length} />
+      )}
       <Slot />
     </>
   );

@@ -5,11 +5,11 @@ const Garden = require('../../assets/yourself.png');
 
 import React, { useState, useEffect } from 'react';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
-import getCurrentDateFormatted from '../../utils/getCurrentDateFormatted';
+import { getCurrentDate } from '../../utils/date';
 import { router } from 'expo-router';
 import H1 from '../../components/h1';
 export default function Yourself() {
-  const date = getCurrentDateFormatted();
+  const date = getCurrentDate();
 
   const [value, setValue] = useState(null);
   const { getItem, setItem } = useAsyncStorage(date);

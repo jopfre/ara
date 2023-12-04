@@ -2,7 +2,7 @@ import { View } from 'react-native';
 import Button from '../../components/button';
 import React, { useState, useEffect } from 'react';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
-import getCurrentDateFormatted from '../../utils/getCurrentDateFormatted';
+import { getCurrentDate } from '../../utils/date';
 import { router } from 'expo-router';
 import H1 from '../../components/h1';
 const happy = require('../../assets/happy.png');
@@ -11,7 +11,7 @@ const angry = require('../../assets/angry.png');
 const sad = require('../../assets/sad.png');
 
 export default function CheckIn() {
-  const date = getCurrentDateFormatted();
+  const date = getCurrentDate();
 
   const [value, setValue] = useState(null);
   const { getItem, setItem } = useAsyncStorage(date);

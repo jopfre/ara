@@ -5,12 +5,12 @@ const Garden = require('../../assets/sleep.png');
 import P from '../../components/p';
 import React, { useState, useEffect } from 'react';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
-import getCurrentDateFormatted from '../../utils/getCurrentDateFormatted';
+import { getCurrentDate } from '../../utils/date';
 import { router } from 'expo-router';
 import H1 from '../../components/h1';
 
 export default function Sleep() {
-  const date = getCurrentDateFormatted();
+  const date = getCurrentDate();
 
   const [value, setValue] = useState(null);
   const { getItem, setItem } = useAsyncStorage(date);
@@ -23,7 +23,7 @@ export default function Sleep() {
   const writeItemToStorage = async (newValue) => {
     await setItem(JSON.stringify(newValue));
     setValue(newValue);
-    router.push('checkin/sleep');
+    router.push('checkin/streak');
   };
 
   useEffect(() => {
@@ -39,14 +39,19 @@ export default function Sleep() {
       </P>
 
       <Button
-        title="Yes"
+        title="0-4 hours"
+        active={value?.sleep === 0}
+        onPress={() => writeItemToStorage({ sleep: 0 })}
+      />
+      <Button
+        title="5-9 hours"
         active={value?.sleep === 1}
         onPress={() => writeItemToStorage({ sleep: 1 })}
       />
       <Button
-        title="No"
-        active={value?.sleep === 0}
-        onPress={() => writeItemToStorage({ sleep: 0 })}
+        title="10+ hours"
+        active={value?.sleep === 2}
+        onPress={() => writeItemToStorage({ sleep: 2 })}
       />
     </>
   );
