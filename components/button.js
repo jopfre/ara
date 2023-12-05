@@ -37,7 +37,11 @@ export default function Button({
   // }`}
   const Content = (
     <>
-      {title && <Text style={{ fontSize: 30, color: '#0E6135' }}>{title}</Text>}
+      {title && (
+        <Text className="font-comfortaa text-2xl" style={{ color: '#0E6135' }}>
+          {title}
+        </Text>
+      )}
       {image && (
         <View className="w-full  flex-1">
           <Image source={image} className="flex-1" contentFit="contain" />

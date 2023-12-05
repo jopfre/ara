@@ -9,7 +9,7 @@ export default function CheckInLayout() {
   const route = segments[1];
   const index = screens.indexOf(route) + 1;
   return (
-    <View className="px-4 flex-1 w-full items-center">
+    <View className="flex-1 w-full items-center">
       {route === 'streak' ? (
         <View className="h-[64px]" />
       ) : (

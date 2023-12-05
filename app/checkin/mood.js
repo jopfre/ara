@@ -34,14 +34,14 @@ export default function CheckIn() {
   return (
     <>
       <H1>How do you feel today?</H1>
-      <View className="flex-row flex-1 mb-" style={{ gap: 16 }}>
+      <View className="flex-row flex-1" style={{ gap: 16 }}>
         <Button
           title="Happy"
           active={value?.mood === 0}
           onPress={() => writeItemToStorage({ mood: 0 })}
           image={happy}
           height={250}
-          style={{ width: '50%' }}
+          style={{ flex: 1 }}
         />
         <Button
           title="Content"
@@ -49,7 +49,7 @@ export default function CheckIn() {
           onPress={() => writeItemToStorage({ mood: 1 })}
           image={content}
           height={250}
-          style={{ width: '50%' }}
+          style={{ flex: 1 }}
         />
       </View>
       <View className="flex-row flex-1" style={{ gap: 16 }}>
@@ -59,7 +59,7 @@ export default function CheckIn() {
           onPress={() => writeItemToStorage({ mood: 2 })}
           image={angry}
           height={250}
-          style={{ width: '50%' }}
+          style={{ flex: 1 }}
         />
         <Button
           title="Sad"
@@ -67,7 +67,7 @@ export default function CheckIn() {
           onPress={() => writeItemToStorage({ mood: 3 })}
           image={sad}
           height={250}
-          style={{ width: '50%' }}
+          style={{ flex: 1 }}
         />
       </View>
     </>

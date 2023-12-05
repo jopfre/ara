@@ -18,6 +18,9 @@ module.exports = {
           950: '#052e16',
         },
       },
+      fontFamily: {
+        comfortaa: ['Comfortaa'],
+      },
     },
     boxShadow: {
       DEFAULT: '0 8px 0px #79A588',

@@ -8,7 +8,7 @@ const CheckIn = require('./../assets/check-in.png');
 
 export default function Home() {
   return (
-    <View className="px-4">
+    <View className="w-full">
       <View className="h-[150px] flex-1 border-b-2 border-green-300 items-center">
         <Link
           href="/"
