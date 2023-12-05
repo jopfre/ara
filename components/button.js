@@ -2,7 +2,6 @@ import { Text, Pressable, View } from 'react-native';
 import { Link } from 'expo-router';
 import { Image } from 'expo-image';
 import { Shadow } from 'react-native-shadow-2';
-
 export default function Button({
   title = null,
   onPress = null,
@@ -72,17 +71,3 @@ export default function Button({
     );
   }
 }
-
-// <Shadow
-//   distance={0}
-//   startColor={'#3D6F4E'}
-//   endColor={'#3D6F4E0'}
-//   offset={[0, 2]}
-//   // sides={{ bottom: false, top: false, left: false, right: false }}
-//   sides={{ start: false, end: false, top: false, bottom: true }}
-//   stretch={true}
-//   // className="w-full flex-1"
-//   // style={{ alignSelf: 'stretch' }}
-//   containerStyle={{ flex: 1 }}
-//   style={{ borderRadius: 40 }}
-// >/Shadow>
