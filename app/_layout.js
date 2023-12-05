@@ -52,17 +52,13 @@ export default function AppLayout() {
   if (!appIsReady || !fontsLoaded) {
     // if (!appIsReady) {
     return (
-      <Image
-        source={Splash}
-        className="flex-1 w-full -mt-5"
-        contentFit="contain"
-      />
+      <Image source={Splash} className="flex-1 w-full" contentFit="contain" />
     );
   }
   return (
     <SafeAreaView className="flex-1" onLayout={onLayoutRootView}>
-      <ScrollView className="flex-1 px-4 w-full">
-        <View className="items-center">
+      <ScrollView className="flex-1">
+        <View className="items-center px-4 w-full">
           <Slot />
         </View>
       </ScrollView>

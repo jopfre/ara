@@ -1,6 +1,7 @@
 import { Text, Pressable, View } from 'react-native';
 import { Link } from 'expo-router';
 import { Image } from 'expo-image';
+import { Shadow } from 'react-native-shadow-2';
 
 export default function Button({
   title = null,
@@ -14,20 +15,24 @@ export default function Button({
 }) {
   const buttonStyle = ({ pressed }) => [
     {
-      shadowOffset: pressed ? { width: 0, height: 0 } : { width: 0, height: 8 },
+      // shadowOffset: pressed ? { width: 0, height: 0 } : { width: 2, height: 8 },
     },
     {
-      backgroundColor: '#DEFFDE',
-      borderColor: active ? '#58A360' : '#B8E3A5',
+      // shadowOffset: { width: 2, height: 8 },
+      backgroundColor: '#F0FFF1',
+      // borderColor: active ? '#58A360' : '#B8E3A5',
+      borderColor: '#ADE59F',
       borderWidth: 4,
       padding: 20,
       borderRadius: 40,
       width: '100%',
       alignItems: 'center',
-      shadowColor: '#79A588',
-      shadowOpacity: 1,
-      shadowRadius: 0,
+      // shadowColor: '#3D6F4E',
+      // shadowOpacity: 1,
+      // shadowRadius: 0,
       marginVertical: 16,
+      // flex: 1,
+      // elevation: 8,
       height: height,
       ...style,
     },
@@ -38,9 +43,7 @@ export default function Button({
   const Content = (
     <>
       {title && (
-        <Text className="font-comfortaa text-2xl" style={{ color: '#0E6135' }}>
-          {title}
-        </Text>
+        <Text className="font-comfortaa text-2xl text-green-950">{title}</Text>
       )}
       {image && (
         <View className="w-full  flex-1">
@@ -69,3 +72,17 @@ export default function Button({
     );
   }
 }
+
+// <Shadow
+//   distance={0}
+//   startColor={'#3D6F4E'}
+//   endColor={'#3D6F4E0'}
+//   offset={[0, 2]}
+//   // sides={{ bottom: false, top: false, left: false, right: false }}
+//   sides={{ start: false, end: false, top: false, bottom: true }}
+//   stretch={true}
+//   // className="w-full flex-1"
+//   // style={{ alignSelf: 'stretch' }}
+//   containerStyle={{ flex: 1 }}
+//   style={{ borderRadius: 40 }}
+// >/Shadow>
