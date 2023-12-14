@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getCurrentDate, daysAgo } from '../../utils/date';
 import { router } from 'expo-router';
 import H1 from '../../components/h1';
-
+import ButtonText from '../../components/button-text';
 export default function Streak() {
   const date = getCurrentDate();
 
@@ -56,7 +56,9 @@ export default function Streak() {
       <P>
         Current streak: {streak + 1} day{streak > 0 && 's'}
       </P>
-      <Button title="Home" href="/home" />
+      <Button href="/home">
+        <ButtonText>Home</ButtonText>
+      </Button>
     </>
   );
 }

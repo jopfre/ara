@@ -8,12 +8,13 @@ import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { getCurrentDate } from '../../utils/date';
 import { router } from 'expo-router';
 import H1 from '../../components/h1';
+import ButtonText from '../../components/button-text';
 
 export default function Others() {
   const date = getCurrentDate();
 
   const [value, setValue] = useState(null);
-  const { getItem, setItem } = useAsyncStorage(date);
+  const { getItem, mergeItem } = useAsyncStorage(date);
 
   const readItemFromStorage = async () => {
     const item = await getItem();
@@ -21,7 +22,7 @@ export default function Others() {
   };
 
   const writeItemToStorage = async (newValue) => {
-    await setItem(JSON.stringify(newValue));
+    await mergeItem(JSON.stringify(newValue));
     setValue(newValue);
     router.push('checkin/eaten');
   };
@@ -35,15 +36,17 @@ export default function Others() {
       <H1>Have you done anything for others today?</H1>
 
       <Button
-        title="Yes"
         active={value?.others === 1}
         onPress={() => writeItemToStorage({ others: 1 })}
-      />
+      >
+        <ButtonText>Yes</ButtonText>
+      </Button>
       <Button
-        title="No"
         active={value?.others === 0}
         onPress={() => writeItemToStorage({ others: 0 })}
-      />
+      >
+        <ButtonText>No</ButtonText>
+      </Button>
     </>
   );
 }

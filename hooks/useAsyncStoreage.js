@@ -24,7 +24,7 @@ export const useAsyncStorage = (key, defaultValue) => {
         await AsyncStorage.removeItem(key);
       } else {
         const value = JSON.stringify(newValue);
-        await AsyncStorage.setItem(key, value);
+        await AsyncStorage.mergeItem(key, value);
       }
     } catch (e) {
     } finally {
@@ -45,7 +45,7 @@ export const useAsyncStorage = (key, defaultValue) => {
 //   const storeData = async (key, value) => {
 //     try {
 //       const jsonValue = JSON.stringify(value);
-//       await AsyncStorage.setItem(key, jsonValue);
+//       await AsyncStorage.mergeItem(key, jsonValue);
 //       console.log(`Data saved successfully for key ${key}`);
 //     } catch (error) {
 //       console.error(`Error saving data for key ${key}: `, error);

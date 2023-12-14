@@ -8,12 +8,12 @@ import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { getCurrentDate } from '../../utils/date';
 import { router } from 'expo-router';
 import H1 from '../../components/h1';
-
+import ButtonText from '../../components/button-text';
 export default function Exercised() {
   const date = getCurrentDate();
 
   const [value, setValue] = useState(null);
-  const { getItem, setItem } = useAsyncStorage(date);
+  const { getItem, mergeItem } = useAsyncStorage(date);
 
   const readItemFromStorage = async () => {
     const item = await getItem();
@@ -21,7 +21,7 @@ export default function Exercised() {
   };
 
   const writeItemToStorage = async (newValue) => {
-    await setItem(JSON.stringify(newValue));
+    await mergeItem(JSON.stringify(newValue));
     setValue(newValue);
     router.push('checkin/sleep');
   };
@@ -40,15 +40,17 @@ export default function Exercised() {
       </P>
 
       <Button
-        title="Yes"
         active={value?.exercised === 1}
         onPress={() => writeItemToStorage({ exercised: 1 })}
-      />
+      >
+        <ButtonText>Yes</ButtonText>
+      </Button>
       <Button
-        title="No"
         active={value?.exercised === 0}
         onPress={() => writeItemToStorage({ exercised: 0 })}
-      />
+      >
+        <ButtonText>No</ButtonText>
+      </Button>
     </>
   );
 }

@@ -1,20 +1,20 @@
 import { useRouter } from 'expo-router';
-import { Image } from 'expo-image';
 import Button from './button';
-
-const Back = require('./../assets/chevron-left.svg');
+import ButtonImage from './button-image';
 
 export default function BackButton({ href, title }) {
   const router = useRouter();
 
   return (
     <Button
-      image={Back}
-      height={32}
-      style={{ width: 70, padding: 0 }}
+      height={30}
+      style={{ width: 50, transform: 'translateY(-2px)', marginRight: 'auto' }}
       onPress={() => {
         router.back();
       }}
-    />
+      padding={4}
+    >
+      <ButtonImage source={require('./../assets/back.png')} />
+    </Button>
   );
 }

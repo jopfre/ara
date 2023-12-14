@@ -8,12 +8,12 @@ import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { getCurrentDate } from '../../utils/date';
 import { router } from 'expo-router';
 import H1 from '../../components/h1';
-
+import ButtonText from '../../components/button-text';
 export default function Sleep() {
   const date = getCurrentDate();
 
   const [value, setValue] = useState(null);
-  const { getItem, setItem } = useAsyncStorage(date);
+  const { getItem, mergeItem } = useAsyncStorage(date);
 
   const readItemFromStorage = async () => {
     const item = await getItem();
@@ -21,7 +21,7 @@ export default function Sleep() {
   };
 
   const writeItemToStorage = async (newValue) => {
-    await setItem(JSON.stringify(newValue));
+    await mergeItem(JSON.stringify(newValue));
     setValue(newValue);
     router.push('checkin/streak');
   };
@@ -39,20 +39,23 @@ export default function Sleep() {
       </P>
 
       <Button
-        title="0-4 hours"
         active={value?.sleep === 0}
         onPress={() => writeItemToStorage({ sleep: 0 })}
-      />
+      >
+        <ButtonText>0-4 hours</ButtonText>
+      </Button>
       <Button
-        title="5-9 hours"
         active={value?.sleep === 1}
         onPress={() => writeItemToStorage({ sleep: 1 })}
-      />
+      >
+        <ButtonText>5-9 hours</ButtonText>
+      </Button>
       <Button
-        title="10+ hours"
         active={value?.sleep === 2}
         onPress={() => writeItemToStorage({ sleep: 2 })}
-      />
+      >
+        <ButtonText>10+ hours</ButtonText>
+      </Button>
     </>
   );
 }

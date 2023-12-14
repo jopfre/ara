@@ -10,7 +10,6 @@ export default function Button({
   active = false,
   href = null,
   image = null,
-  // height = 'auto',
   height,
   style,
   ...rest
@@ -20,7 +19,7 @@ export default function Button({
   const onPressIn = () => {
     Animated.timing(translateYValue, {
       toValue: 2,
-      duration: 100,
+      duration: 50,
       useNativeDriver: true,
     }).start();
   };
@@ -35,9 +34,11 @@ export default function Button({
 
   const Content = (
     <Pressable
-      onPress={() => {}}
-      onPressIn={onPressIn}
-      onPressOut={onPressOut}
+      onPress={() => {
+        onPress && onPress();
+      }}
+      // onPressIn={onPressIn}
+      // onPressOut={onPressOut}
       style={{ width: '100%', marginVertical: 16 }}
     >
       {({ pressed }) => (
@@ -83,46 +84,4 @@ export default function Button({
   } else {
     return { Content };
   }
-
-  // return (
-  //   <Pressable
-  //     onPress={() => {}}
-  //     onPressIn={onPressIn}
-  //     onPressOut={onPressOut}
-  //     style={{ width: '100%', marginVertical: 16 }}
-  //   >
-  //     {({ pressed }) => (
-  //       <Shadow
-  //         distance={4}
-  //         startColor={pressed ? '#ffffff' : '#3D6F4E'}
-  //         offset={[0, 6]}
-  //         stretch={true}
-  //       >
-  //         <Animated.View
-  //           style={[
-  //             {
-  //               borderRadius: 40,
-  //               backgroundColor: '#F0FFF1',
-  //               height: height,
-  //               alignItems: 'center',
-  //               borderColor: '#ADE59F',
-  //               borderWidth: 4,
-  //               padding: 20,
-  //             },
-  //             {
-  //               transform: [{ translateY: translateYValue }],
-  //             },
-  //           ]}
-  //         >
-  //           <View className="w-full flex-1">
-  //             <Image source={Checkin} className="flex-1" contentFit="contain" />
-  //           </View>
-  //           <Text className="font-comfortaa text-2xl text-green-950">
-  //             Button
-  //           </Text>
-  //         </Animated.View>
-  //       </Shadow>
-  //     )}
-  //   </Pressable>
-  // );
 }
