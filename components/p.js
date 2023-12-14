@@ -1,8 +1,11 @@
 import { Text } from 'react-native';
 
-export default function P({ children }) {
+export default function P({ children, ...rest }) {
   return (
-    <Text className="font-comfortaa text-lg text-center text-green-950">
+    <Text
+      className="font-comfortaa text-lg text-center text-green-950"
+      {...rest}
+    >
       {children}
     </Text>
   );

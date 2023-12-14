@@ -22,7 +22,7 @@ export default function Button({
       onPress={() => {
         onPress && onPress();
       }}
-      style={[{ width: '100%', marginVertical: 16 }, style]}
+      style={[{ width: '100%', marginTop: 16 }, style]}
     >
       {({ pressed }) => (
         <Shadow
@@ -49,7 +49,7 @@ export default function Button({
   );
   if (href) {
     return (
-      <Link href={href} asChild style={{ width: '100%', marginVertical: 16 }}>
+      <Link href={href} asChild style={{ width: '100%', marginTop: 16 }}>
         {Content}
       </Link>
     );

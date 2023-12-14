@@ -1,10 +1,8 @@
 import H1 from '../components/h1';
 import P from '../components/p';
-import Button from '../components/button';
-import ButtonText from '../components/button-text';
-import ButtonImage from '../components/button-image';
 import BackButton from '../components/back-button';
-import { View } from 'react-native';
+import * as Linking from 'expo-linking';
+import HobbyButtons from '../components/hobby-buttons';
 
 export default function Hobbies() {
   return (
@@ -16,22 +14,18 @@ export default function Hobbies() {
         You deserve to have fun. Seek to rediscover yourself by trying something
         new. Tap the activities below to find out more…
       </P>
-      <View className="flex-row flex-1" style={{ gap: 16 }}>
-        <Button height={220} style={{ flex: 1 }}>
-          <ButtonImage
-            source={require('./../assets/walking.png')}
-            background={true}
-          />
-          <ButtonText className="mt-4">Walking</ButtonText>
-        </Button>
-        <Button height={220} style={{ flex: 1 }}>
-          <ButtonImage
-            source={require('./../assets/reading.png')}
-            background={true}
-          />
-          <ButtonText className="mt-4">Reading</ButtonText>
-        </Button>
-      </View>
+      <HobbyButtons />
+      <P className="mt-8 mb-12">
+        For support with starting activities, contact our Community Engagement
+        worker Zak on{' '}
+        <P
+          onPress={() => {
+            Linking.openURL('tel:+447552369548');
+          }}
+        >
+          07552 369548
+        </P>
+      </P>
     </>
   );
 }
