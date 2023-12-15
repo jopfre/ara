@@ -2,8 +2,8 @@ import { Text, View, Pressable } from 'react-native';
 import { Image } from 'expo-image';
 import Button from '../components/button';
 import { Link } from 'expo-router';
-import ActivityChart from '../components/activity-chart';
 import ButtonText from '../components/button-text';
+import Charts from '../components/charts';
 const Logo = require('./../assets/logo.png');
 const CheckIn = require('./../assets/check-in.png');
 
@@ -30,7 +30,7 @@ export default function Home() {
           </Pressable>
         </Link>
       </View>
-      <ActivityChart />
+      <Charts />
       <Button href="/contacts">
         <ButtonText>Contacts</ButtonText>
       </Button>
