@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import 'react-native-gesture-handler';
 import { Image } from 'expo-image';
 
 import { Slot } from 'expo-router';
