@@ -3,7 +3,12 @@ import Modal from 'react-native-modal';
 import Button from './button';
 import ButtonImage from './button-image';
 import P from './p';
-export default function AraModal({ modalVisible, setModalVisible, text }) {
+export default function AraModal({
+  modalVisible,
+  setModalVisible,
+  text,
+  children,
+}) {
   return (
     <Modal
       // animationType="slide"
@@ -38,7 +43,8 @@ export default function AraModal({ modalVisible, setModalVisible, text }) {
         >
           <ButtonImage source={require('./../assets/close.png')} />
         </Button>
-        <P className="text-xs">{text}</P>
+        {text && <P className="text-xs">{text}</P>}
+        {children}
       </View>
     </Modal>
   );

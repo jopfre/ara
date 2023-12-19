@@ -58,7 +58,7 @@ export default function AppLayout() {
   return (
     <SafeAreaView className="flex-1" onLayout={onLayoutRootView}>
       <ScrollView className="flex-1">
-        <View className="items-center px-4 w-full pb-2">
+        <View className="items-center px-4 w-full pb-8">
           <Slot />
         </View>
       </ScrollView>

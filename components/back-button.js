@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import Button from './button';
 import ButtonImage from './button-image';
 
-export default function BackButton({ href, title }) {
+export default function BackButton({ href, title, ...rest }) {
   const router = useRouter();
 
   return (
@@ -13,6 +13,7 @@ export default function BackButton({ href, title }) {
         router.back();
       }}
       padding={4}
+      {...rest}
     >
       <ButtonImage source={require('./../assets/back.png')} />
     </Button>

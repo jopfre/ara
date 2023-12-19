@@ -23,6 +23,7 @@ export default function Button({
         onPress && onPress();
       }}
       style={[{ width: '100%', marginTop: 16 }, style]}
+      {...rest}
     >
       {({ pressed }) => (
         <Shadow
