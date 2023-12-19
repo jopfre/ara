@@ -8,7 +8,7 @@ export default function BackButton({ href, title }) {
   return (
     <Button
       height={30}
-      style={{ width: 50, transform: 'translateY(-2px)', marginRight: 'auto' }}
+      style={{ width: 50, transform: 'translateY(-10px)', marginRight: 'auto' }}
       onPress={() => {
         router.back();
       }}

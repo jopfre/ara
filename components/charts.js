@@ -80,7 +80,7 @@ export default function Charts() {
         // autoPlay={true}
         data={[...new Array(2).keys()]}
         scrollAnimationDuration={1000}
-        onSnapToItem={(index) => console.log('current index:', index)}
+        // onSnapToItem={(index) => console.log('current index:', index)}
         renderItem={({ index }) => slides[index]}
       />
     </View>

@@ -6,7 +6,7 @@ export default function CheckinHeader({ title, progress }) {
   return (
     <View className="flex-row justify-between items-center w-full">
       <BackButton />
-      <View className="ml-4 rounded-2xl h-8 flex-1 bg-green-400 shadow">
+      <View className="ml-4 rounded-2xl h-8 flex-1 bg-green-200 shadow">
         <View className="h-8 justify-center px-1">
           <ProgressBar
             progress={progress}

@@ -12,12 +12,13 @@ export default function MoodChart({ mood, ...rest }) {
   };
 
   return (
-    <View className="border-4 border-green-200 p-4 rounded-3xl" {...rest}>
+    <View className="border-4 border-green-200 p-4 mr-8 rounded-3xl" {...rest}>
       <H2>Mood chart</H2>
       <View className="flex flex-row">
         {mood ? (
           mood.map((day) => (
             <Image
+              key={day}
               source={map[day]}
               contentFit="contain"
               className="w-[14%]"

@@ -5,6 +5,8 @@ import { Image } from 'expo-image';
 import P from './p';
 
 export default function ActivityChart({ loading, eaten, exercised, slept }) {
+  const width = Dimensions.get('window').width;
+
   if (loading)
     return (
       <View className="px-8 py-12">
@@ -12,7 +14,9 @@ export default function ActivityChart({ loading, eaten, exercised, slept }) {
       </View>
     );
   return (
-    <View className="border-green-200 border-4 rounded-3xl py-4 items-center mx-6">
+    <View
+      className={`border-green-200 border-4 rounded-3xl flex-1 py-4 mr-8 items-center `}
+    >
       {eaten || exercised || slept ? (
         <BarChart
           data={{
@@ -27,7 +31,7 @@ export default function ActivityChart({ loading, eaten, exercised, slept }) {
               },
             ],
           }}
-          width={290}
+          width={width - 96}
           height={220}
           withInnerLines={false}
           fromZero={true}
