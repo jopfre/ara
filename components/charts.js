@@ -5,6 +5,7 @@ import ActivityChart from './activity-chart';
 import MoodChart from './mood-chart';
 import { Dimensions, Text, View } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
+import ActionChart from './action-chart';
 export default function Charts() {
   const [data, setData] = useState(null);
   const [mood, setMood] = useState(null);
@@ -49,7 +50,7 @@ export default function Charts() {
       );
       const summedData = calculateSums(storageData);
       setData(summedData);
-
+      console.log(summedData);
       let mood = storageData.map((day) => day.mood);
       // pad the mood array if we dont yet have enough data
       while (mood.length < 7) {
@@ -70,6 +71,7 @@ export default function Charts() {
       slept={data?.sleep}
     />,
     <MoodChart mood={mood} />,
+    <ActionChart self={0} others={7} />,
   ];
   return (
     <View className="flex-1">
@@ -78,7 +80,7 @@ export default function Charts() {
         width={width}
         height={293}
         // autoPlay={true}
-        data={[...new Array(2).keys()]}
+        data={[...new Array(3).keys()]}
         scrollAnimationDuration={1000}
         // onSnapToItem={(index) => console.log('current index:', index)}
         renderItem={({ index }) => slides[index]}

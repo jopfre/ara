@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 import { Image } from 'expo-image';
-import H2 from './h2';
+import P from './p';
 
 export default function MoodChart({ mood, ...rest }) {
   const map = {
@@ -13,12 +13,12 @@ export default function MoodChart({ mood, ...rest }) {
 
   return (
     <View className="border-4 border-green-200 p-4 mr-8 rounded-3xl" {...rest}>
-      <H2>Mood chart</H2>
+      <P>Mood chart</P>
       <View className="flex flex-row">
         {mood ? (
-          mood.map((day) => (
+          mood.map((day, index) => (
             <Image
-              key={day}
+              key={index}
               source={map[day]}
               contentFit="contain"
               className="w-[14%]"

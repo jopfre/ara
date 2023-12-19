@@ -9,7 +9,7 @@ export default function ActivityChart({ loading, eaten, exercised, slept }) {
 
   if (loading)
     return (
-      <View className="px-8 py-12">
+      <View className="px-8 py-12 mr-8">
         <P>Loading</P>
       </View>
     );
