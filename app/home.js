@@ -6,7 +6,6 @@ import ButtonText from '../components/button-text';
 import Charts from '../components/charts';
 import CheckInButton from '../components/checkin-button';
 const Logo = require('./../assets/logo.png');
-const CheckIn = require('./../assets/check-in.png');
 
 export default function Home() {
   return (

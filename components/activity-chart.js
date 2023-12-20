@@ -46,6 +46,7 @@ export default function ActivityChart({ loading, eaten, exercised, slept }) {
           chartConfig={{
             backgroundGradientFrom: '#ffffff',
             backgroundGradientTo: '#ffffff',
+            backgroundGradientFromOpacity: 0,
             color: (opacity = 1) => `#58A360`,
             barRadius: 10,
             barPercentage: 2,
