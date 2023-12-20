@@ -4,6 +4,7 @@ import Button from '../components/button';
 import { Link } from 'expo-router';
 import ButtonText from '../components/button-text';
 import Charts from '../components/charts';
+import CheckInButton from '../components/checkin-button';
 const Logo = require('./../assets/logo.png');
 const CheckIn = require('./../assets/check-in.png');
 
@@ -34,9 +35,7 @@ export default function Home() {
       <Button href="/contacts">
         <ButtonText>Contacts</ButtonText>
       </Button>
-      <Button href="/checkin">
-        <ButtonText>Daily Check-in</ButtonText>
-      </Button>
+      <CheckInButton />
       <Button href="/hobbies">
         <ButtonText>Hobbies</ButtonText>
       </Button>

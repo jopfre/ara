@@ -5,6 +5,7 @@ import Button from '../components/button';
 import H1 from '../components/h1';
 import ButtonText from '../components/button-text';
 import ButtonImage from '../components/button-image';
+import CheckInButton from '../components/checkin-button';
 const Logo = require('./../assets/logo.png');
 
 export default function Index() {
@@ -14,10 +15,7 @@ export default function Index() {
         <Image source={Logo} className="flex-1" contentFit="contain" />
       </View>
       <H1>Welcome back!</H1>
-      <Button href="/checkin/mood" height={300}>
-        <ButtonImage source={require('./../assets/checkin.png')} />
-        <ButtonText className="mt-6">Daily Check-in</ButtonText>
-      </Button>
+      <CheckInButton image={true} />
       <Button href="/home">
         <ButtonText>Home</ButtonText>
       </Button>

@@ -8,10 +8,9 @@ import { ImageBackground } from 'react-native';
 export default function Button({
   title = null,
   onPress = null,
-  active = false,
   href = null,
-  image = null,
   padding = 18,
+  disabled = false,
   height,
   style,
   children,
@@ -24,21 +23,24 @@ export default function Button({
       }}
       style={[{ width: '100%', marginTop: 16 }, style]}
       {...rest}
+      disabled={disabled}
     >
       {({ pressed }) => (
         <Shadow
           distance={2}
-          startColor={pressed ? '#ffffff' : '#3D6F4E'}
+          startColor={pressed || disabled ? '#ffffff' : '#3D6F4E'}
           offset={[0, 4]}
           stretch={true}
         >
           <View
-            className="border-4 border-green-200"
+            className={`border-4 items-center  ${
+              disabled
+                ? 'bg-gray-300 border-gray-400'
+                : 'bg-green-50 border-green-200'
+            }`}
             style={{
               borderRadius: 40,
-              backgroundColor: '#F0FFF1',
               height: height,
-              alignItems: 'center',
               padding: padding,
             }}
           >
