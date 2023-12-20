@@ -11,7 +11,7 @@ export default function Button({
   active = false,
   href = null,
   image = null,
-  padding = 24,
+  padding = 18,
   height,
   style,
   children,
