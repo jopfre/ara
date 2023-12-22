@@ -57,7 +57,7 @@ export default function Charts() {
       );
       const summedData = calculateSums(storageData);
       setData(summedData);
-      console.log(summedData);
+      // console.log(summedData);
       let mood = storageData.map((day) => day.mood);
       // pad the mood array if we dont yet have enough data
       while (mood.length < 7) {

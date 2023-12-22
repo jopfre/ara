@@ -1,15 +1,14 @@
 import { View } from 'react-native';
 import Button from '../../components/button';
-import React, { useState, useEffect } from 'react';
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
-import { getCurrentDate } from '../../utils/date';
+
 import { router } from 'expo-router';
 import H1 from '../../components/h1';
 import ButtonText from '../../components/button-text';
 import ButtonImage from '../../components/button-image';
-const content = require('../../assets/content.png');
-const angry = require('../../assets/angry.png');
-const sad = require('../../assets/sad.png');
+
+import { useState, useEffect } from 'react';
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import { getCurrentDate } from '../../utils/date';
 
 export default function CheckIn() {
   const date = getCurrentDate();

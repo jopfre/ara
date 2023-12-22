@@ -8,11 +8,36 @@ import ButtonText from '../components/button-text';
 import ButtonImage from '../components/button-image';
 import { View } from 'react-native';
 import Modal from '../components/modal';
-import { useState } from 'react';
 import AddContactForm from '../components/add-contact-form';
+
+import { useState, useEffect } from 'react';
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import { getCurrentDate } from '../utils/date';
+import AddSupportWorkerForm from '../components/add-support-worker';
+
 export default function Contacts() {
   const [modalVisible, setModalVisible] = useState(false);
   const [isSupportWorker, setIsSupportWorker] = useState(false);
+
+  const [contacts, setContacts] = useState(null);
+  const [supportWorker, setSupportWorker] = useState(null);
+
+  const { getItem: getSupportWorker } = useAsyncStorage('support-worker');
+  const { getItem: getContacts } = useAsyncStorage('contacts');
+
+  const readItemFromStorage = async () => {
+    // removeItem();
+    const storedSupportWorker = await getSupportWorker();
+    if (storedSupportWorker) setSupportWorker(JSON.parse(storedSupportWorker));
+    const storedContacts = await getContacts();
+    console.log(storedContacts);
+    if (storedContacts) setContacts(JSON.parse(storedContacts));
+  };
+
+  useEffect(() => {
+    readItemFromStorage();
+  }, [modalVisible]);
+
   return (
     <>
       <View className="flex-1 flex-row relative w-full justify-center">
@@ -33,25 +58,38 @@ export default function Contacts() {
       </Button>
       <Button
         onPress={() => {
+          if (!supportWorker) {
+            setIsSupportWorker(true);
+            setModalVisible(true);
+          }
+          Linking.openURL(`tel:${Object.values(supportWorker)[0]}`);
+        }}
+        onLongPress={() => {
           setIsSupportWorker(true);
           setModalVisible(true);
         }}
-        height={150}
+        height={!supportWorker ? 150 : 90}
       >
-        <ButtonText className="text-center">My support worker</ButtonText>
-        <ButtonImage
-          source={require('../assets/add.png')}
-          className="mt-4 w-8"
-        />
+        <ButtonText>
+          {supportWorker ? Object.keys(supportWorker)[0] : 'My support worker'}
+        </ButtonText>
+        {supportWorker && (
+          <ButtonText>{Object.values(supportWorker)[0]}</ButtonText>
+        )}
+
+        {!supportWorker && (
+          <ButtonImage
+            source={require('../assets/add.png')}
+            className="mt-4 w-8"
+          />
+        )}
       </Button>
       <Button
         onPress={() => {
           Linking.openURL('tel:07971484286');
         }}
       >
-        <ButtonText className="text-center">
-          Emergency out of hours (weekday)
-        </ButtonText>
+        <ButtonText>Emergency out of hours (weekday)</ButtonText>
         <ButtonText>07971 484286</ButtonText>
       </Button>
       <Button
@@ -59,9 +97,7 @@ export default function Contacts() {
           Linking.openURL('tel:03005550334');
         }}
       >
-        <ButtonText className="text-center">
-          Emergency out of hours (weekend)
-        </ButtonText>
+        <ButtonText>Emergency out of hours (weekend)</ButtonText>
         <ButtonText>0300 5550334</ButtonText>
       </Button>
 
@@ -71,9 +107,7 @@ export default function Contacts() {
           Linking.openURL('tel:03005550334');
         }}
       >
-        <ButtonText className="text-center">
-          Mental Health Crisis Team (24/7)
-        </ButtonText>
+        <ButtonText>Mental Health Crisis Team (24/7)</ButtonText>
         <ButtonText>0300 5550334</ButtonText>
       </Button>
       <Button
@@ -81,9 +115,7 @@ export default function Contacts() {
           Linking.openURL('tel:08088080330');
         }}
       >
-        <ButtonText className="text-center">
-          Bristol Mindline (8pm - midnight)
-        </ButtonText>
+        <ButtonText>Bristol Mindline (8pm - midnight)</ButtonText>
         <ButtonText>0808 8080330</ButtonText>
       </Button>
       <Button
@@ -91,7 +123,7 @@ export default function Contacts() {
           Linking.openURL('tel:116123');
         }}
       >
-        <ButtonText className="text-center">Samaritans</ButtonText>
+        <ButtonText>Samaritans</ButtonText>
         <ButtonText>116 123</ButtonText>
       </Button>
       <Button
@@ -107,9 +139,7 @@ export default function Contacts() {
           Linking.openURL('tel:03009991212');
         }}
       >
-        <ButtonText className="text-center">
-          Narcotics Anonymous (10am - midnight)
-        </ButtonText>
+        <ButtonText>Narcotics Anonymous (10am - midnight)</ButtonText>
         <ButtonText>0300 9991212</ButtonText>
       </Button>
       <Button
@@ -117,29 +147,41 @@ export default function Contacts() {
           Linking.openURL('tel:07760632986');
         }}
       >
-        <ButtonText className="text-center">
-          Cocaine Anonymous (10am - 10pm)
-        </ButtonText>
+        <ButtonText>Cocaine Anonymous (10am - 10pm)</ButtonText>
         <ButtonText>07760 632986</ButtonText>
       </Button>
       <H2 style={{ marginTop: 64 }}>My contacts</H2>
+      {contacts &&
+        Object.keys(contacts)?.map((contact) => (
+          <Button
+            key={contact}
+            onPress={() => {
+              Linking.openURL(`tel:${contacts[contact]}`);
+            }}
+          >
+            <ButtonText>{contact}</ButtonText>
+            <ButtonText>{contacts[contact]}</ButtonText>
+          </Button>
+        ))}
       <Button
         onPress={() => {
           setModalVisible(true);
         }}
         height={150}
       >
-        <ButtonText className="text-center">Add contact</ButtonText>
+        <ButtonText>Add contact</ButtonText>
         <ButtonImage
           source={require('../assets/add.png')}
           className="mt-4 w-8"
         />
       </Button>
+
       <Modal modalVisible={modalVisible} setModalVisible={setModalVisible}>
-        <AddContactForm
-          setModalVisible={setModalVisible}
-          isSupportWorker={isSupportWorker}
-        />
+        {isSupportWorker ? (
+          <AddSupportWorkerForm setModalVisible={setModalVisible} />
+        ) : (
+          <AddContactForm setModalVisible={setModalVisible} />
+        )}
       </Modal>
     </>
   );

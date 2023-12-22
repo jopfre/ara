@@ -7,14 +7,14 @@ import H1 from './h1';
 import { useState, useEffect } from 'react';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
-export default function AddContactForm({ setModalVisible }) {
+export default function AddSupportWorkerForm({ setModalVisible }) {
   const [name, setName] = useState(null);
   const [number, setNumber] = useState(null);
 
-  const { mergeItem } = useAsyncStorage('contacts');
+  const { setItem } = useAsyncStorage('support-worker');
 
   const writeItemToStorage = async (newValue) => {
-    await mergeItem(JSON.stringify(newValue));
+    await setItem(JSON.stringify(newValue));
   };
 
   const handleAddContact = () => {
@@ -24,7 +24,7 @@ export default function AddContactForm({ setModalVisible }) {
 
   return (
     <View>
-      <H1 className="mb-8">Add contact</H1>
+      <H1 className="mb-8">Add support worker</H1>
       <Label>Name:</Label>
       <TextInput
         value={name}
@@ -41,7 +41,7 @@ export default function AddContactForm({ setModalVisible }) {
       />
 
       <Button onPress={handleAddContact}>
-        <ButtonText>Add contact</ButtonText>
+        <ButtonText>Add support worker</ButtonText>
       </Button>
     </View>
   );
