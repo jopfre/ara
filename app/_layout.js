@@ -56,13 +56,23 @@ export default function AppLayout() {
       <Image source={Splash} className="flex-1 w-full" contentFit="contain" />
     );
   }
+  // return (
+  //   <SafeAreaView className="flex-1" onLayout={onLayoutRootView}>
+  //     <ScrollView className="flex-1">
+  //       <View className="items-center px-4 w-full pb-8">
+  //         <Slot />
+  //       </View>
+  //     </ScrollView>
+  //     <StatusBar style="auto" />
+  //   </SafeAreaView>
+  // );
   return (
     <SafeAreaView className="flex-1" onLayout={onLayoutRootView}>
-      <ScrollView className="flex-1">
-        <View className="items-center px-4 w-full pb-8">
-          <Slot />
-        </View>
-      </ScrollView>
+      {/* <ScrollView className="flex-1"> */}
+      <View className="items-center px-4 w-full pb-8 flex-1">
+        <Slot />
+      </View>
+      {/* </ScrollView> */}
       <StatusBar style="auto" />
     </SafeAreaView>
   );

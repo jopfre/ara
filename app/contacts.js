@@ -14,7 +14,7 @@ import { useState, useEffect } from 'react';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { getCurrentDate } from '../utils/date';
 import AddSupportWorkerForm from '../components/add-support-worker';
-
+import Header from '../components/header';
 export default function Contacts() {
   const [modalVisible, setModalVisible] = useState(false);
   const [isSupportWorker, setIsSupportWorker] = useState(false);
@@ -40,13 +40,8 @@ export default function Contacts() {
 
   return (
     <>
-      <View className="flex-1 flex-row relative w-full justify-center">
-        <View className="absolute left-0">
-          <BackButton />
-        </View>
+      <Header>Contacts</Header>
 
-        <H1 className="-translate-y-2">Contacts</H1>
-      </View>
       <H2>Ara contacts</H2>
       <Button
         onPress={() => {
