@@ -1,9 +1,9 @@
-import { Shadow } from 'react-native-shadow-2';
-import { useRef } from 'react';
-import { Text, View, Animated, Pressable } from 'react-native';
-import { Link } from 'expo-router';
-import { Image } from 'expo-image';
-import { ImageBackground } from 'react-native';
+import { Shadow } from "react-native-shadow-2";
+import { useRef } from "react";
+import { Text, View, Animated, Pressable } from "react-native";
+import { Link } from "expo-router";
+import { Image } from "expo-image";
+import { ImageBackground } from "react-native";
 
 export default function Button({
   title = null,
@@ -14,6 +14,7 @@ export default function Button({
   height,
   style,
   children,
+  width = "100%",
   ...rest
 }) {
   const Content = (
@@ -21,22 +22,22 @@ export default function Button({
       onPress={() => {
         onPress && onPress();
       }}
-      style={[{ width: '100%', marginTop: 16 }, style]}
+      style={[{ width: width, marginTop: 16 }, style]}
       {...rest}
       disabled={disabled}
     >
       {({ pressed }) => (
         <Shadow
           distance={2}
-          startColor={pressed || disabled ? '#ffffff' : '#3D6F4E'}
+          startColor={pressed || disabled ? "#ffffff" : "#3D6F4E"}
           offset={[0, 4]}
           stretch={true}
         >
           <View
             className={`border-4 items-center  ${
               disabled
-                ? 'bg-gray-300 border-gray-400'
-                : 'bg-green-50 border-green-200'
+                ? "bg-gray-300 border-gray-400"
+                : "bg-green-50 border-green-200"
             }`}
             style={{
               borderRadius: 40,
@@ -52,7 +53,7 @@ export default function Button({
   );
   if (href) {
     return (
-      <Link href={href} asChild style={{ width: '100%', marginTop: 16 }}>
+      <Link href={href} asChild style={{ width: "100%", marginTop: 16 }}>
         {Content}
       </Link>
     );

@@ -1,9 +1,9 @@
-import { View } from 'react-native';
-import BackButton from './back-button';
-import H1 from './h1';
-export default function Header({ children }) {
+import { View } from "react-native";
+import BackButton from "./back-button";
+import H1 from "./h1";
+export default function Header({ children, ...rest }) {
   return (
-    <View className="flex-1 flex-row relative w-full justify-center">
+    <View className="flex-1 flex-row relative w-full justify-center" {...rest}>
       <View className="absolute left-0">
         <BackButton />
       </View>

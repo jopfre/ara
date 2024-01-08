@@ -1,23 +1,27 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import 'react-native-gesture-handler';
-import { Image } from 'expo-image';
+import React, { useCallback, useEffect, useState } from "react";
+import "react-native-gesture-handler";
+import { Image } from "expo-image";
 
-import { Slot } from 'expo-router';
-import { View, ScrollView } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import * as SplashScreen from 'expo-splash-screen';
-import { useFonts } from 'expo-font';
+import { Slot } from "expo-router";
+import { View, ScrollView } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from "react-native-safe-area-context";
+import * as SplashScreen from "expo-splash-screen";
+import { useFonts } from "expo-font";
 
-const Splash = require('./../assets/splash.gif');
+import { useSegments } from "expo-router";
+
+const Splash = require("./../assets/splash.gif");
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 export default function AppLayout() {
+  const segments = useSegments();
+
   const [appIsReady, setAppIsReady] = useState(false);
 
   const [fontsLoaded] = useFonts({
-    Comfortaa: require('../assets/fonts/Comfortaa-VariableFont_wght.ttf'),
+    Comfortaa: require("../assets/fonts/Comfortaa-VariableFont_wght.ttf"),
   });
 
   useEffect(() => {
@@ -56,24 +60,37 @@ export default function AppLayout() {
       <Image source={Splash} className="flex-1 w-full" contentFit="contain" />
     );
   }
-  // return (
-  //   <SafeAreaView className="flex-1" onLayout={onLayoutRootView}>
-  //     <ScrollView className="flex-1">
-  //       <View className="items-center px-4 w-full pb-8">
+
+  // if (segments[0] === "calendar") {
+  //   // return <Slot />;
+  //   return (
+  //     <SafeAreaView className="flex-1" onLayout={onLayoutRootView}>
+  //       <View className="items-center px-4 w-full pb-8 flex-1">
   //         <Slot />
   //       </View>
-  //     </ScrollView>
-  //     <StatusBar style="auto" />
-  //   </SafeAreaView>
-  // );
+
+  //       <StatusBar style="auto" />
+  //     </SafeAreaView>
+  //   );
+  // }
   return (
     <SafeAreaView className="flex-1" onLayout={onLayoutRootView}>
-      {/* <ScrollView className="flex-1"> */}
-      <View className="items-center px-4 w-full pb-8 flex-1">
-        <Slot />
-      </View>
-      {/* </ScrollView> */}
+      <ScrollView className="flex-1">
+        <View className="items-center px-4 w-full pb-8">
+          <Slot />
+        </View>
+      </ScrollView>
       <StatusBar style="auto" />
     </SafeAreaView>
   );
+  // return (
+  //   <SafeAreaView className="flex-1" onLayout={onLayoutRootView}>
+  //     {/* <ScrollView className="flex-1"> */}
+  //     <View className="items-center px-4 w-full pb-8 flex-1">
+  //       <Slot />
+  //     </View>
+  //     {/* </ScrollView> */}
+  //     <StatusBar style="auto" />
+  //   </SafeAreaView>
+  // );
 }
