@@ -1,16 +1,16 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect, useState } from 'react';
-import ActivityChart from './activity-chart';
-import MoodChart from './mood-chart';
-import { Dimensions, Text, View } from 'react-native';
-import Carousel from 'react-native-reanimated-carousel';
-import ActionChart from './action-chart';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
+import ActivityChart from "./activity-chart";
+import MoodChart from "./mood-chart";
+import { Dimensions, Text, View } from "react-native";
+import Carousel from "react-native-reanimated-carousel";
+import ActionChart from "./action-chart";
 import Animated, {
   Extrapolate,
   interpolate,
   useAnimatedStyle,
   useSharedValue,
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
 
 export default function Charts() {
   const [data, setData] = useState(null);
@@ -25,7 +25,7 @@ export default function Charts() {
       // read error
     }
 
-    console.log('Done.');
+    console.log("Done.");
   };
 
   useEffect(() => {
@@ -52,8 +52,9 @@ export default function Charts() {
       console.log(e);
     }
     if (keys.length) {
+      console.log(keys);
       const storageData = await Promise.all(
-        keys.slice(-7).map((date) => getMyObject(date)),
+        keys.slice(-7).map((date) => getMyObject(date))
       );
       const summedData = calculateSums(storageData);
       setData(summedData);
@@ -68,7 +69,7 @@ export default function Charts() {
     }
     setLoading(false);
   };
-  const width = Dimensions.get('window').width;
+  const width = Dimensions.get("window").width;
 
   const [autoPlay, setAutoPlay] = useState(false);
   const [pagingEnabled, setPagingEnabled] = useState(true);
@@ -123,7 +124,7 @@ export default function Charts() {
 }
 
 const PAGE_WIDTH = window.width;
-const colors = ['#b8e3a5', '#b8e3a5', '#b8e3a5'];
+const colors = ["#b8e3a5", "#b8e3a5", "#b8e3a5"];
 
 function PaginationItem({ index, backgroundColor, length, animValue }) {
   const width = 10;
@@ -144,7 +145,7 @@ function PaginationItem({ index, backgroundColor, length, animValue }) {
             animValue?.value,
             inputRange,
             outputRange,
-            Extrapolate.CLAMP,
+            Extrapolate.CLAMP
           ),
         },
       ],
@@ -153,11 +154,11 @@ function PaginationItem({ index, backgroundColor, length, animValue }) {
   return (
     <View
       style={{
-        backgroundColor: '#d4d4d4',
+        backgroundColor: "#d4d4d4",
         width,
         height: width,
         borderRadius: 50,
-        overflow: 'hidden',
+        overflow: "hidden",
       }}
     >
       <Animated.View

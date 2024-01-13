@@ -1,20 +1,20 @@
-import H1 from '../components/h1';
-import H2 from '../components/h2';
-import P from '../components/p';
-import BackButton from '../components/back-button';
-import * as Linking from 'expo-linking';
-import Button from '../components/button';
-import ButtonText from '../components/button-text';
-import ButtonImage from '../components/button-image';
-import { View } from 'react-native';
-import Modal from '../components/modal';
-import AddContactForm from '../components/add-contact-form';
+import H1 from "../components/h1";
+import H2 from "../components/h2";
+import P from "../components/p";
+import BackButton from "../components/back-button";
+import * as Linking from "expo-linking";
+import Button from "../components/button";
+import ButtonText from "../components/button-text";
+import ButtonImage from "../components/button-image";
+import { View } from "react-native";
+import Modal from "../components/modal";
+import AddContactForm from "../components/add-contact-form";
 
-import { useState, useEffect } from 'react';
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
-import { getCurrentDate } from '../utils/date';
-import AddSupportWorkerForm from '../components/add-support-worker';
-import Header from '../components/header';
+import { useState, useEffect } from "react";
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+import { getCurrentDate } from "../utils/date";
+import AddSupportWorkerForm from "../components/add-support-worker";
+import Header from "../components/header";
 export default function Contacts() {
   const [modalVisible, setModalVisible] = useState(false);
   const [isSupportWorker, setIsSupportWorker] = useState(false);
@@ -22,8 +22,8 @@ export default function Contacts() {
   const [contacts, setContacts] = useState(null);
   const [supportWorker, setSupportWorker] = useState(null);
 
-  const { getItem: getSupportWorker } = useAsyncStorage('support-worker');
-  const { getItem: getContacts } = useAsyncStorage('contacts');
+  const { getItem: getSupportWorker } = useAsyncStorage("support-worker");
+  const { getItem: getContacts } = useAsyncStorage("contacts");
 
   const readItemFromStorage = async () => {
     // removeItem();
@@ -45,7 +45,7 @@ export default function Contacts() {
       <H2>Ara contacts</H2>
       <Button
         onPress={() => {
-          Linking.openURL('tel:03301340286');
+          Linking.openURL("tel:03301340286");
         }}
       >
         <ButtonText>Ara Main Office</ButtonText>
@@ -56,8 +56,9 @@ export default function Contacts() {
           if (!supportWorker) {
             setIsSupportWorker(true);
             setModalVisible(true);
+          } else {
+            Linking.openURL(`tel:${Object.values(supportWorker)[0]}`);
           }
-          Linking.openURL(`tel:${Object.values(supportWorker)[0]}`);
         }}
         onLongPress={() => {
           setIsSupportWorker(true);
@@ -66,7 +67,7 @@ export default function Contacts() {
         height={!supportWorker ? 150 : 90}
       >
         <ButtonText>
-          {supportWorker ? Object.keys(supportWorker)[0] : 'My support worker'}
+          {supportWorker ? Object.keys(supportWorker)[0] : "My support worker"}
         </ButtonText>
         {supportWorker && (
           <ButtonText>{Object.values(supportWorker)[0]}</ButtonText>
@@ -74,14 +75,14 @@ export default function Contacts() {
 
         {!supportWorker && (
           <ButtonImage
-            source={require('../assets/add.png')}
+            source={require("../assets/add.png")}
             className="mt-4 w-8"
           />
         )}
       </Button>
       <Button
         onPress={() => {
-          Linking.openURL('tel:07971484286');
+          Linking.openURL("tel:07971484286");
         }}
       >
         <ButtonText>Emergency out of hours (weekday)</ButtonText>
@@ -89,7 +90,7 @@ export default function Contacts() {
       </Button>
       <Button
         onPress={() => {
-          Linking.openURL('tel:03005550334');
+          Linking.openURL("tel:03005550334");
         }}
       >
         <ButtonText>Emergency out of hours (weekend)</ButtonText>
@@ -99,7 +100,7 @@ export default function Contacts() {
       <H2 style={{ marginTop: 64 }}>Helpline contacts</H2>
       <Button
         onPress={() => {
-          Linking.openURL('tel:03005550334');
+          Linking.openURL("tel:03005550334");
         }}
       >
         <ButtonText>Mental Health Crisis Team (24/7)</ButtonText>
@@ -107,7 +108,7 @@ export default function Contacts() {
       </Button>
       <Button
         onPress={() => {
-          Linking.openURL('tel:08088080330');
+          Linking.openURL("tel:08088080330");
         }}
       >
         <ButtonText>Bristol Mindline (8pm - midnight)</ButtonText>
@@ -115,7 +116,7 @@ export default function Contacts() {
       </Button>
       <Button
         onPress={() => {
-          Linking.openURL('tel:116123');
+          Linking.openURL("tel:116123");
         }}
       >
         <ButtonText>Samaritans</ButtonText>
@@ -123,7 +124,7 @@ export default function Contacts() {
       </Button>
       <Button
         onPress={() => {
-          Linking.openURL('tel:08009177650');
+          Linking.openURL("tel:08009177650");
         }}
       >
         <ButtonText>Alcoholics Anonymous (24/7)</ButtonText>
@@ -131,7 +132,7 @@ export default function Contacts() {
       </Button>
       <Button
         onPress={() => {
-          Linking.openURL('tel:03009991212');
+          Linking.openURL("tel:03009991212");
         }}
       >
         <ButtonText>Narcotics Anonymous (10am - midnight)</ButtonText>
@@ -139,7 +140,7 @@ export default function Contacts() {
       </Button>
       <Button
         onPress={() => {
-          Linking.openURL('tel:07760632986');
+          Linking.openURL("tel:07760632986");
         }}
       >
         <ButtonText>Cocaine Anonymous (10am - 10pm)</ButtonText>
@@ -166,7 +167,7 @@ export default function Contacts() {
       >
         <ButtonText>Add contact</ButtonText>
         <ButtonImage
-          source={require('../assets/add.png')}
+          source={require("../assets/add.png")}
           className="mt-4 w-8"
         />
       </Button>
