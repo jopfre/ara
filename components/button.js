@@ -1,9 +1,6 @@
 import { Shadow } from "react-native-shadow-2";
-import { useRef } from "react";
-import { Text, View, Animated, Pressable } from "react-native";
+import { View, Pressable } from "react-native";
 import { Link } from "expo-router";
-import { Image } from "expo-image";
-import { ImageBackground } from "react-native";
 
 export default function Button({
   title = null,
