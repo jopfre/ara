@@ -6,6 +6,7 @@ export default function CalendarComponent({
   initialDate = CalendarUtils.getCalendarDateString(new Date()),
   selectedDate,
   setSelectedDate,
+  marked,
 }) {
   const { width } = Dimensions.get("screen");
 
@@ -18,18 +19,6 @@ export default function CalendarComponent({
   const onDayPress = useCallback((day) => {
     setSelectedDate(day.dateString);
   }, []);
-
-  const marked = useMemo(() => {
-    return {
-      //   [getDate(-1)]: {
-      //     marked: true,
-      //   },
-      [selectedDate]: {
-        selected: true,
-        disableTouchEvent: true,
-      },
-    };
-  }, [selectedDate]);
 
   return (
     <View style={{ width: width - 32 }}>

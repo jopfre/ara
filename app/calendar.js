@@ -2,7 +2,7 @@ import { CalendarUtils } from "react-native-calendars";
 import Header from "../components/header";
 import Modal from "../components/modal";
 import { View } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { getCurrentDate, formatDate } from "../utils/date";
 import Button from "../components/button";
 import ButtonImage from "../components/button-image";
@@ -15,6 +15,7 @@ import AsyncStorage, {
   useAsyncStorage,
 } from "@react-native-async-storage/async-storage";
 import CalendarComponent from "../components/calendar";
+import { parse } from "react-native-svg";
 
 function filterObjectKeysByDate(obj, filterDate) {
   const filteredObject = {};
@@ -54,26 +55,53 @@ function getTimeFromDate(dateString) {
   return formattedTime;
 }
 
+function markDates(inputObject) {
+  const uniqueDates = [
+    ...new Set(
+      Object.keys(inputObject).map((dateString) => dateString.split("T")[0])
+    ),
+  ];
+  const formattedDates = {};
+
+  uniqueDates.forEach((date) => {
+    formattedDates[date] = { marked: true };
+  });
+
+  return formattedDates;
+}
 export default function AraCalendar() {
   const initialDate = CalendarUtils.getCalendarDateString(new Date());
 
   const [selectedDate, setSelectedDate] = useState(initialDate);
+  const [markedDates, setMarkedDates] = useState(initialDate);
   const [modalVisible, setModalVisible] = useState(false);
   // const [markedDates, setMarkedDates] = useState({});
   const [events, setEvents] = useState({});
   const { getItem } = useAsyncStorage("events");
 
+  const marked = useMemo(() => {
+    return {
+      ...markedDates,
+      [selectedDate]: {
+        selected: true,
+        disableTouchEvent: true,
+      },
+    };
+  }, [selectedDate, markedDates]);
+
   const readItemFromStorage = async () => {
     const item = await getItem();
     if (item) {
+      const parsedData = JSON.parse(item);
+      setMarkedDates(markDates(parsedData));
+
       const selectedDateEvents = filterObjectKeysByDate(
-        JSON.parse(item),
+        parsedData,
         new Date(selectedDate)
       );
       const sortedSelectedDateEvents = sortObjectKeys(selectedDateEvents);
       setEvents(sortedSelectedDateEvents);
     }
-    console.log(item);
   };
 
   useEffect(() => {
@@ -86,6 +114,7 @@ export default function AraCalendar() {
       <CalendarComponent
         setSelectedDate={setSelectedDate}
         selectedDate={selectedDate}
+        marked={marked}
       />
       <View className="mt-4">
         <H2>{formatDate(selectedDate)}</H2>
