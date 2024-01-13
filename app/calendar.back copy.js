@@ -1,4 +1,9 @@
-import { CalendarUtils } from "react-native-calendars";
+import {
+  Calendar,
+  CalendarList,
+  Agenda,
+  CalendarProvider,
+} from "react-native-calendars";
 import Header from "../components/header";
 import Modal from "../components/modal";
 // import AgendaScreen from "../components/agendaScreen";
@@ -14,7 +19,6 @@ import AddEventForm from "../components/add-event-form";
 import AsyncStorage, {
   useAsyncStorage,
 } from "@react-native-async-storage/async-storage";
-import CalendarComponent from "../components/calendar";
 
 function filterObjectKeysByDate(obj, filterDate) {
   const filteredObject = {};
@@ -60,11 +64,8 @@ function getTimeFromDate(dateString) {
 }
 
 export default function AraCalendar() {
-  const initialDate = CalendarUtils.getCalendarDateString(new Date());
-
   const { height } = Dimensions.get("screen");
-  // const [date, setDate] = useState(new Date(getCurrentDate()));
-  const [selectedDate, setSelectedDate] = useState(initialDate);
+  const [date, setDate] = useState(new Date(getCurrentDate()));
   const [modalVisible, setModalVisible] = useState(false);
   // const [markedDates, setMarkedDates] = useState({});
   const [events, setEvents] = useState({});
@@ -72,30 +73,70 @@ export default function AraCalendar() {
 
   const readItemFromStorage = async () => {
     const item = await getItem();
+    console.log(date);
     console.log(item);
     if (item) {
       const selectedDateEvents = filterObjectKeysByDate(
         JSON.parse(item),
-        new Date(selectedDate)
+        new Date(date)
       );
       const sortedSelectedDateEvents = sortObjectKeys(selectedDateEvents);
       setEvents(sortedSelectedDateEvents);
     }
   };
 
+  const marked = useMemo(() => {
+    return {
+      // [getDate(-1)]: {
+      //   dotColor: 'red',
+      //   marked: true
+      // },
+      [date]: {
+        selected: true,
+        disableTouchEvent: true,
+        selectedColor: "orange",
+        selectedTextColor: "red",
+      },
+    };
+  }, [date]);
+
   useEffect(() => {
     readItemFromStorage();
-  }, [modalVisible, selectedDate]);
+  }, [modalVisible, date]);
 
   return (
     <>
+      {console.log(marked)}
       <Header>Calendar</Header>
-      <CalendarComponent
-        setSelectedDate={setSelectedDate}
-        selectedDate={selectedDate}
+      <Calendar
+        style={{ transform: "scale(1.5)", marginTop: 64, marginBottom: 128 }}
+        theme={{
+          textMonthFontFamily: "Comfortaa",
+          textDayFontFamily: "Comfortaa",
+          todayButtonFontFamily: "Comfortaa",
+          dayTextColor: "rgb(7,41,20)",
+          monthTextColor: "rgb(7,41,20)",
+          // todayTextColor: "#EB8A59",
+          arrowColor: "rgb(7,41,20)",
+          // selectedDayTextColor: "#EB8A59",
+          // textDayFontSize: 24,
+          dotColor: "#52C46F",
+          selectedDayBackgroundColor: "#EB8A59",
+          // "stylesheet.day.basic": {
+          //   base: {
+          //     width: ,
+          //     height: 42,
+          //   },
+          // },
+        }}
+        // markedDates={markedDates}
+        markedDates={marked}
+        onDayPress={(date) => {
+          setDate(new Date(date.dateString));
+        }}
       />
       <View>
-        <H2>{formatDate(selectedDate)}</H2>
+        <H2>{formatDate(date)}</H2>
         {Object.entries(events).map(([key, value]) => (
           <View key={key}>
             <Text>{getTimeFromDate(key)}</Text>
@@ -116,7 +157,7 @@ export default function AraCalendar() {
       </View>
 
       <Modal modalVisible={modalVisible} setModalVisible={setModalVisible}>
-        <AddEventForm date={selectedDate} setModalVisible={setModalVisible} />
+        <AddEventForm date={date} setModalVisible={setModalVisible} />
       </Modal>
       {/* <AgendaScreen /> */}
       {/* <View style={{ height: height - 170 }} className="w-full">
