@@ -1,8 +1,8 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import ActivityChart from "./activity-chart";
 import MoodChart from "./mood-chart";
-import { Dimensions, Text, View } from "react-native";
+import { Dimensions, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import ActionChart from "./action-chart";
 import Animated, {
@@ -12,73 +12,115 @@ import Animated, {
   useSharedValue,
 } from "react-native-reanimated";
 
+function getRecentData(data) {
+  const sortedKeys = Object.keys(data).sort(
+    (a, b) => new Date(b) - new Date(a)
+  );
+  const recentKeys = sortedKeys.slice(0, 7);
+
+  const recentData = {};
+  recentKeys.forEach((key) => {
+    recentData[key] = data[key];
+  });
+
+  return recentData;
+}
+
+function extractMoodValues(data) {
+  const moodValues = [];
+
+  for (const date in data) {
+    if (data.hasOwnProperty(date) && data[date].hasOwnProperty("mood")) {
+      moodValues.push(data[date]["mood"]);
+    }
+  }
+
+  return moodValues;
+}
+
 export default function Charts() {
+  const { getItem } = useAsyncStorage("checkin");
+
+  const readItemFromStorage = async () => {
+    const item = await getItem();
+
+    if (item) {
+      const storageData = JSON.parse(item);
+      // const storageData = {
+      //   "2024-01-13": {
+      //     eaten: 1,
+      //     exercised: 1,
+      //     mood: 0,
+      //     others: 1,
+      //     yourself: 1,
+      //     sleep: 1,
+      //   },
+      //   "2024-01-12": {
+      //     eaten: 1,
+      //     exercised: 1,
+      //     mood: 0,
+      //     others: 1,
+      //     yourself: 1,
+      //     sleep: 1,
+      //   },
+      //   "2024-01-11": {
+      //     eaten: 1,
+      //     exercised: 1,
+      //     mood: 0,
+      //     others: 1,
+      //     yourself: 1,
+      //     sleep: 1,
+      //   },
+      // };
+      const recentData = getRecentData(storageData);
+
+      if (recentData) {
+        const summedData = calculateSums(recentData);
+
+        setData(summedData);
+        let mood = extractMoodValues(recentData);
+
+        // pad the mood array if we dont yet have enough data
+        while (mood.length < 7) {
+          mood.unshift(-1);
+        }
+
+        setMood(mood);
+      }
+
+      setLoading(false);
+    }
+  };
+
   const [data, setData] = useState(null);
   const [mood, setMood] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  getMyObject = async (key) => {
-    try {
-      const jsonValue = await AsyncStorage.getItem(key);
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
-    } catch (e) {
-      // read error
-    }
-
-    console.log("Done.");
-  };
-
   useEffect(() => {
-    getAllKeys();
+    readItemFromStorage();
   }, []);
 
   function calculateSums(data) {
-    return data.reduce((sums, obj) => {
-      // Iterate through each key in the object
-      Object.keys(obj).forEach((key) => {
-        // If the key doesn't exist in the sums object, initialize it with the value
-        sums[key] = (sums[key] || 0) + obj[key];
-      });
+    const sums = {};
 
-      // Return the updated sums object for the next iteration
-      return sums;
-    }, {});
-  }
-  getAllKeys = async () => {
-    let keys = [];
-    try {
-      keys = await AsyncStorage.getAllKeys();
-    } catch (e) {
-      console.log(e);
-    }
-    if (keys.length) {
-      console.log(keys);
-      const storageData = await Promise.all(
-        keys.slice(-7).map((date) => getMyObject(date))
-      );
-      const summedData = calculateSums(storageData);
-      setData(summedData);
-      // console.log(summedData);
-      let mood = storageData.map((day) => day.mood);
-      // pad the mood array if we dont yet have enough data
-      while (mood.length < 7) {
-        mood.unshift(-1);
+    for (const date in data) {
+      if (data.hasOwnProperty(date)) {
+        const activities = data[date];
+
+        for (const activity in activities) {
+          if (activities.hasOwnProperty(activity)) {
+            sums[activity] = (sums[activity] || 0) + activities[activity];
+          }
+        }
       }
-
-      setMood(mood);
     }
-    setLoading(false);
-  };
+
+    return sums;
+  }
+
   const width = Dimensions.get("window").width;
 
-  const [autoPlay, setAutoPlay] = useState(false);
-  const [pagingEnabled, setPagingEnabled] = useState(true);
-  const [snapEnabled, setSnapEnabled] = useState(true);
   const progressValue = useSharedValue(0);
-  const baseOptions = {
-    width: PAGE_WIDTH,
-    height: PAGE_WIDTH * 0.6,
-  };
 
   const slides = [
     <ActivityChart
@@ -88,7 +130,7 @@ export default function Charts() {
       slept={data?.sleep}
     />,
     <MoodChart mood={mood} />,
-    <ActionChart self={0} others={7} />,
+    <ActionChart self={data?.yourself} others={data?.others} />,
   ];
   return (
     <View className="flex-1">

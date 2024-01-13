@@ -1,12 +1,12 @@
-import { Text, View } from 'react-native';
-import { BarChart } from 'react-native-chart-kit';
-import { Dimensions } from 'react-native';
-import { Image } from 'expo-image';
-import P from './p';
+import { Text, View } from "react-native";
+import { BarChart } from "react-native-chart-kit";
+import { Dimensions } from "react-native";
+import { Image } from "expo-image";
+import P from "./p";
 
 export default function ActivityChart({ loading, eaten, exercised, slept }) {
-  const width = Dimensions.get('window').width;
-
+  const width = Dimensions.get("window").width;
+  console.log(eaten, exercised, slept);
   if (loading)
     return (
       <View className="px-8 py-12 mr-8">
@@ -24,9 +24,9 @@ export default function ActivityChart({ loading, eaten, exercised, slept }) {
               {
                 data: [eaten, exercised, slept],
                 colors: [
-                  (opacity = 1) => '#58A360',
-                  (opacity = 1) => '#58A360',
-                  (opacity = 1) => '#58A360',
+                  (opacity = 1) => "#58A360",
+                  (opacity = 1) => "#58A360",
+                  (opacity = 1) => "#58A360",
                 ],
               },
             ],
@@ -44,8 +44,8 @@ export default function ActivityChart({ loading, eaten, exercised, slept }) {
             marginBottom: -20,
           }}
           chartConfig={{
-            backgroundGradientFrom: '#ffffff',
-            backgroundGradientTo: '#ffffff',
+            backgroundGradientFrom: "#ffffff",
+            backgroundGradientTo: "#ffffff",
             backgroundGradientFromOpacity: 0,
             color: (opacity = 1) => `#58A360`,
             barRadius: 10,
@@ -64,17 +64,17 @@ export default function ActivityChart({ loading, eaten, exercised, slept }) {
       )}
       <View className="flex-row px-8 pt-4 border-t-4 border-green-200">
         <Image
-          source={require('./../assets/food-icon.png')}
+          source={require("./../assets/food-icon.png")}
           className="flex-1 w-1/6 h-[32px]"
           contentFit="contain"
         />
         <Image
-          source={require('./../assets/exercise-icon.png')}
+          source={require("./../assets/exercise-icon.png")}
           className="flex-1 w-1/6 h-[32px]"
           contentFit="contain"
         />
         <Image
-          source={require('./../assets/sleep-icon.png')}
+          source={require("./../assets/sleep-icon.png")}
           className="flex-1 w-1/6 h-[32px]"
           contentFit="contain"
         />

@@ -1,19 +1,20 @@
-import { View } from 'react-native';
-import Button from '../../components/button';
-import CheckinImage from '../../components/checkin/checkin-image';
-const Garden = require('../../assets/sleep.png');
-import P from '../../components/p';
-import React, { useState, useEffect } from 'react';
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
-import { getCurrentDate } from '../../utils/date';
-import { router } from 'expo-router';
-import H1 from '../../components/h1';
-import ButtonText from '../../components/button-text';
+import { View } from "react-native";
+import Button from "../../components/button";
+import CheckinImage from "../../components/checkin/checkin-image";
+const Garden = require("../../assets/sleep.png");
+import P from "../../components/p";
+import React, { useState, useEffect } from "react";
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+import { getCurrentDate } from "../../utils/date";
+import { router } from "expo-router";
+import H1 from "../../components/h1";
+import ButtonText from "../../components/button-text";
 export default function Sleep() {
   const date = getCurrentDate();
 
   const [value, setValue] = useState(null);
-  const { getItem, mergeItem } = useAsyncStorage(date);
+  // const { getItem, mergeItem } = useAsyncStorage(date);
+  const { getItem, mergeItem } = useAsyncStorage("checkin");
 
   const readItemFromStorage = async () => {
     const item = await getItem();
@@ -21,9 +22,11 @@ export default function Sleep() {
   };
 
   const writeItemToStorage = async (newValue) => {
-    await mergeItem(JSON.stringify(newValue));
+    // await mergeItem(JSON.stringify(newValue));
+    await mergeItem(JSON.stringify({ [date]: newValue }));
+    console.log(newValue);
     setValue(newValue);
-    router.push('checkin/streak');
+    router.push("checkin/streak");
   };
 
   useEffect(() => {

@@ -1,20 +1,21 @@
-import { View } from 'react-native';
-import Button from '../../components/button';
+import { View } from "react-native";
+import Button from "../../components/button";
 
-import { router } from 'expo-router';
-import H1 from '../../components/h1';
-import ButtonText from '../../components/button-text';
-import ButtonImage from '../../components/button-image';
+import { router } from "expo-router";
+import H1 from "../../components/h1";
+import ButtonText from "../../components/button-text";
+import ButtonImage from "../../components/button-image";
 
-import { useState, useEffect } from 'react';
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
-import { getCurrentDate } from '../../utils/date';
+import { useState, useEffect } from "react";
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+import { getCurrentDate } from "../../utils/date";
 
 export default function CheckIn() {
   const date = getCurrentDate();
 
   const [value, setValue] = useState(null);
-  const { getItem, mergeItem } = useAsyncStorage(date);
+  // const { getItem, mergeItem } = useAsyncStorage(date);
+  const { getItem, mergeItem } = useAsyncStorage("checkin");
 
   const readItemFromStorage = async () => {
     const item = await getItem();
@@ -22,9 +23,11 @@ export default function CheckIn() {
   };
 
   const writeItemToStorage = async (newValue) => {
-    await mergeItem(JSON.stringify(newValue));
+    // await mergeItem(JSON.stringify(newValue));
+    await mergeItem(JSON.stringify({ [date]: newValue }));
+
     setValue(newValue);
-    router.push('checkin/yourself');
+    router.push("checkin/yourself");
   };
 
   useEffect(() => {
@@ -42,7 +45,7 @@ export default function CheckIn() {
           style={{ flex: 1 }}
         >
           <ButtonText className="mb-6">Happy</ButtonText>
-          <ButtonImage source={require('../../assets/happy.png')} />
+          <ButtonImage source={require("../../assets/happy.png")} />
         </Button>
         <Button
           active={value?.mood === 1}
@@ -51,7 +54,7 @@ export default function CheckIn() {
           style={{ flex: 1 }}
         >
           <ButtonText className="mb-6">Content</ButtonText>
-          <ButtonImage source={require('../../assets/content.png')} />
+          <ButtonImage source={require("../../assets/content.png")} />
         </Button>
       </View>
       <View className="flex-row flex-1" style={{ gap: 16 }}>
@@ -62,7 +65,7 @@ export default function CheckIn() {
           style={{ flex: 1 }}
         >
           <ButtonText className="mb-6">Angry</ButtonText>
-          <ButtonImage source={require('../../assets/angry.png')} />
+          <ButtonImage source={require("../../assets/angry.png")} />
         </Button>
         <Button
           active={value?.mood === 3}
@@ -71,7 +74,7 @@ export default function CheckIn() {
           style={{ flex: 1 }}
         >
           <ButtonText className="mb-6">Sad</ButtonText>
-          <ButtonImage source={require('../../assets/sad.png')} />
+          <ButtonImage source={require("../../assets/sad.png")} />
         </Button>
       </View>
     </>
