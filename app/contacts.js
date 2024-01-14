@@ -160,6 +160,7 @@ export default function Contacts() {
         ))}
       <Button
         onPress={() => {
+          setIsSupportWorker(false);
           setModalVisible(true);
         }}
         height={150}
