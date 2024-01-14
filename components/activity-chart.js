@@ -6,7 +6,6 @@ import P from "./p";
 
 export default function ActivityChart({ loading, eaten, exercised, slept }) {
   const width = Dimensions.get("window").width;
-  console.log(eaten, exercised, slept);
   if (loading)
     return (
       <View className="px-8 py-12 mr-8">

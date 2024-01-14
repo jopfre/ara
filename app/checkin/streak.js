@@ -1,20 +1,21 @@
 import Button from "../../components/button";
-import CheckinImage from "../../components/checkin/checkin-image";
-const garden1 = require("../../assets/garden-1.png");
-const garden2 = require("../../assets/garden-2.png");
-const garden3 = require("../../assets/garden-3.png");
+// import CheckinImage from "../../components/checkin/checkin-image";
+// const garden1 = require("../../assets/garden-1.png");
+// const garden2 = require("../../assets/garden-2.png");
+// const garden3 = require("../../assets/garden-3.png");
 import P from "../../components/p";
 import React, { useState, useEffect } from "react";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
-import { getCurrentDate, daysAgo } from "../../utils/date";
+import { daysAgo } from "../../utils/date";
 import H1 from "../../components/h1";
 import ButtonText from "../../components/button-text";
+import StreakAnimation from "../../components/streak-animation";
 export default function Streak() {
-  const date = getCurrentDate();
+  // const date = getCurrentDate();
 
   const [streak, setStreak] = useState(0);
 
-  let garden = garden1;
+  // let garden = garden1;
   let title = "Well done";
   let text = "You’ve started growing your garden";
 
@@ -24,6 +25,11 @@ export default function Streak() {
     const item = await getItem();
 
     if (item) {
+      console.log(
+        Object.keys(JSON.parse(item)),
+        Object.keys(JSON.parse(item))[0],
+        daysAgo(Object.keys(JSON.parse(item))[0])
+      );
       setStreak(daysAgo(Object.keys(JSON.parse(item))[0]));
     }
   };
@@ -33,19 +39,20 @@ export default function Streak() {
   }, []);
 
   if (streak > 28) {
-    garden = garden2;
+    // garden = garden2;
     title = "Nice one!";
     text = "Keep growing your garden";
   }
   if (streak > 28 * 2) {
-    garden = garden3;
+    // garden = garden3;
     title = "Great job!";
     text = "Your garden has grown so much";
   }
 
   return (
     <>
-      <CheckinImage source={garden} />
+      {/* <CheckinImage source={garden} /> */}
+      <StreakAnimation progress={streak / (28 * 3)} />
       <H1>{title}</H1>
       <P>{text}</P>
       <P>The more you use the app the more it will grow!</P>

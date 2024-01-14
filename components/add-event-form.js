@@ -61,7 +61,6 @@ export default function AddEventForm({ setModalVisible, date }) {
           mode="time"
           is24Hour={true}
           onChange={({ nativeEvent }) => {
-            console.log(new Date(nativeEvent.timestamp));
             setDateTime(new Date(nativeEvent.timestamp));
             setTimePickerVisible(false);
           }}

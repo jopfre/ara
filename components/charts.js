@@ -141,7 +141,6 @@ export default function Charts() {
         data={[...new Array(3).keys()]}
         scrollAnimationDuration={1000}
         // onSnapToItem={(index) => {
-        //   console.log('current index:', index);
         // }}
         onProgressChange={(_, absoluteProgress) =>
           (progressValue.value = absoluteProgress)

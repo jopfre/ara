@@ -24,7 +24,6 @@ export default function Sleep() {
   const writeItemToStorage = async (newValue) => {
     // await mergeItem(JSON.stringify(newValue));
     await mergeItem(JSON.stringify({ [date]: newValue }));
-    console.log(newValue);
     setValue(newValue);
     router.push("checkin/streak");
   };

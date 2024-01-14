@@ -30,7 +30,6 @@ export default function Contacts() {
     const storedSupportWorker = await getSupportWorker();
     if (storedSupportWorker) setSupportWorker(JSON.parse(storedSupportWorker));
     const storedContacts = await getContacts();
-    console.log(storedContacts);
     if (storedContacts) setContacts(JSON.parse(storedContacts));
   };
 
