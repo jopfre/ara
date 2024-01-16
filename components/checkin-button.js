@@ -22,11 +22,7 @@ export default function CheckInButton({ image = false }) {
   }, []);
 
   return (
-    <Button
-      href="/checkin/mood"
-      height={image ? 300 : 69}
-      disabled={!checkedIn}
-    >
+    <Button href="/checkin/mood" height={image ? 300 : 69} disabled={checkedIn}>
       <ButtonText>Daily Check-in {checkedIn && "Complete"}</ButtonText>
       {image && (
         <ButtonImage source={require("./../assets/checkin-leaf.png")} />

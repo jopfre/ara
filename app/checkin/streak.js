@@ -41,10 +41,11 @@ export default function Streak() {
     <>
       <ImageBackground
         source={require("../../assets/circle.png")}
-        className="my-4 h-[200px] w-[200px]"
+        className="mt-4 mb-12 h-[200px] w-[200px]"
         resizeMode="contain"
       >
         <StreakAnimation progress={streak / (28 * 3)} />
+
         {/* <StreakAnimation progress={1} /> */}
       </ImageBackground>
       <H1>{title}</H1>
