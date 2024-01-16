@@ -5,7 +5,6 @@ import Button from "../components/button";
 import H1 from "../components/h1";
 import ButtonText from "../components/button-text";
 import CheckInButton from "../components/checkin-button";
-
 export default function Index() {
   return (
     <>
