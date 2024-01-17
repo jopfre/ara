@@ -10,6 +10,7 @@ import StreakAnimation from "../../components/streak-animation";
 import { ImageBackground } from "react-native";
 export default function Streak() {
   const [streak, setStreak] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   let title = "Well done";
   let text = "You’ve started growing your garden";
@@ -22,6 +23,7 @@ export default function Streak() {
     if (item) {
       setStreak(daysAgo(Object.keys(JSON.parse(item))[0]));
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -44,7 +46,7 @@ export default function Streak() {
         className="mt-4 mb-12 h-[200px] w-[200px]"
         resizeMode="contain"
       >
-        <StreakAnimation progress={streak / (28 * 3)} />
+        {!loading && <StreakAnimation progress={(streak + 1) / (28 * 3)} />}
 
         {/* <StreakAnimation progress={1} /> */}
       </ImageBackground>

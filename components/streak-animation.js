@@ -58,7 +58,8 @@ function cacheImages(images) {
   });
 }
 
-export default function StreakAnimation({ progress = 0 }) {
+export default function StreakAnimation({ progress }) {
+  console.log(progress);
   const animations = new Animated.Value(0);
   const opacity = [];
   const { width } = Dimensions.get("window");
