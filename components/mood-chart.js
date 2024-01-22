@@ -1,14 +1,14 @@
-import { Text, View } from 'react-native';
-import { Image } from 'expo-image';
-import P from './p';
+import { View } from "react-native";
+import { Image } from "expo-image";
+import P from "./p";
 
-export default function MoodChart({ mood, ...rest }) {
+export default function MoodChart({ mood, loading, ...rest }) {
   const map = {
-    '-1': require('../assets/mood-icon.png'),
-    0: require('../assets/happy-icon.png'),
-    1: require('../assets/content-icon.png'),
-    2: require('../assets/sad-icon.png'),
-    3: require('../assets/angry-icon.png'),
+    "-1": require("../assets/mood-icon.png"),
+    0: require("../assets/happy-icon.png"),
+    1: require("../assets/content-icon.png"),
+    2: require("../assets/sad-icon.png"),
+    3: require("../assets/angry-icon.png"),
   };
 
   return (
@@ -25,8 +25,12 @@ export default function MoodChart({ mood, ...rest }) {
               height={73}
             />
           ))
+        ) : loading ? (
+          <P className="py-12">Loading</P>
         ) : (
-          <Text>Loading</Text>
+          <P className="py-12">
+            Please complete the daily check-in to start tracking your mood
+          </P>
         )}
       </View>
     </View>

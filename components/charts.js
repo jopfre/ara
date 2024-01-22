@@ -87,9 +87,8 @@ export default function Charts() {
 
         setMood(mood);
       }
-
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   const [data, setData] = useState(null);
@@ -129,7 +128,7 @@ export default function Charts() {
       exercised={data?.exercised}
       slept={data?.sleep}
     />,
-    <MoodChart mood={mood} />,
+    <MoodChart mood={mood} loading={loading} />,
     <ActionChart self={data?.yourself} others={data?.others} />,
   ];
   return (
@@ -164,7 +163,6 @@ export default function Charts() {
   );
 }
 
-const PAGE_WIDTH = window.width;
 const colors = ["#b8e3a5", "#b8e3a5", "#b8e3a5"];
 
 function PaginationItem({ index, backgroundColor, length, animValue }) {

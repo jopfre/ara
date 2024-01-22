@@ -12,10 +12,12 @@ export default function CheckInButton({ image = false }) {
   const [checkedIn, setCheckedIn] = useState(false);
   const readItemFromStorage = async () => {
     const item = await getItem();
-
-    setCheckedIn(
-      Object.keys(JSON.parse(item)).find((key) => key === date) ? true : false
-    );
+    console.log(item);
+    if (item) {
+      setCheckedIn(
+        Object.keys(JSON.parse(item)).find((key) => key === date) ? true : false
+      );
+    }
   };
   useEffect(() => {
     readItemFromStorage();
