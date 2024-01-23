@@ -2,7 +2,7 @@
   "expo": {
     "name": "Ara",
     "slug": "ara",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "scheme": "ara-scheme",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

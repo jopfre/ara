@@ -54,7 +54,7 @@ export default function Sleep() {
       </Button>
       <Button
         active={value?.sleep === 2}
-        onPress={() => writeItemToStorage({ sleep: 2 })}
+        onPress={() => writeItemToStorage({ sleep: 0 })}
       >
         <ButtonText>10+ hours</ButtonText>
       </Button>
